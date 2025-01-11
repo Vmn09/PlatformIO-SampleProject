@@ -11,24 +11,21 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
+#include "lcd.h"
+#include "lm75.h"
+#include "i2cmaster.h"
+
 #include "usart.h"
 
-int main(void) {  
+int main(void) {    
 
-  int input;  
-
-  uart_init(); // open the communication to the microcontroller
-  io_redirect(); // redirect input and output to the communication
-
-    
-  while(1) {
-		
-	  printf("Type in a number \n");
-    scanf("%d", &input);
-    printf("The number you typed is %d is %x in hexadecimal \n", input, input);
-	  _delay_ms(1000)	;
-
-  }
+  i2c_init();
+  LCD_init();
+  LCD_set_cursor(0,0);
+  lm75_init();
   
+  //uart_init(); // open the communication to the microcontroller NOT USED FOR LCD
+  //io_redirect(); // redirect input and output to the communication NOT USED FOR LCD
+
   return 0;
 }
